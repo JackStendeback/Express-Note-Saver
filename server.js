@@ -5,14 +5,20 @@ const fs = require('fs');
 const app = express();
 const PORT = process.env.PORT || 3001;
 
+
 // * Middleware needed for this backend project
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
+app.use(express.static('public'));
 
 // * Routes, specifically the root route ('/)
 app.get('/', (req, res) => {
-    res.send('This is a test!');
+    res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
+
+app.get('/notes', (req, res) => {
+    res.sendFile(path.join(__dirname, 'public', 'notes.html'));
+  });
 
 // * Starting the server, making sure it runs and loads successfully.
 app.listen(PORT, () => {
